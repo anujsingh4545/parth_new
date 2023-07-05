@@ -25,6 +25,11 @@
   --tw-content: "";
 }
 
+* {
+  -webkit-tap-highlight-color: transparent;
+  -moz-tap-highlight-color: transparent;
+}
+
 /*
 1. Use a consistent sensible line-height in all browsers.
 2. Prevent adjustments of font size after orientation changes in iOS.
@@ -523,6 +528,37 @@ video {
   --tw-backdrop-opacity: ;
   --tw-backdrop-saturate: ;
   --tw-backdrop-sepia: ;
+}
+
+.video {
+  max-height: auto;
+  overflow: hidden;
+  transition: max-height 0.9s ease;
+}
+
+.video-closed {
+  max-height: 0;
+  padding: 0;
+  border: none;
+  transition: max-height 0.5s ease, padding 0s ease 0.5s, border 0s ease 0.5s;
+}
+
+.photo {
+  max-height: auto;
+  overflow: hidden;
+  transition: max-height 0.9s ease;
+}
+
+.photo-closed {
+  max-height: 0;
+  padding: 0;
+  border: none;
+  transition: max-height 0.5s ease, padding 0s ease 0.5s, border 0s ease 0.5s;
+}
+#top,
+#tops {
+  margin-left: 10px;
+  cursor: pointer;
 }
 
 .thumbnail-container {
