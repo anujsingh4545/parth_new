@@ -15,7 +15,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link href="https://fonts.googleapis.com/css2?family=Signika:wght@400;700&display=swap" rel="stylesheet" />
-    <!-- End - Fonts -->
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   </head>
 
   <body class="dark:bg-black bg-white h-screen text-black dark:text-white px-5 md:px-20 opacity-0 animate-fade-in transition duration-500">
@@ -82,7 +83,7 @@
           <div class="max-w-screen-md">
             <h1 class="text-4xl pt-10 pb-8"></h1>
 
-            <form class="space-y-8" action="mailto:info@example.com">
+            <form class="space-y-8" id="emailForm">
               <div>
                 <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your email</label>
                 <input
@@ -107,7 +108,7 @@
                 <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Your message</label>
                 <textarea id="message" rows="6" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-neutral-900 dark:border-neutral-800 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Leave a comment..." required></textarea>
               </div>
-              <button type="submit" class="py-3 px-5 text-sm font-medium text-center bg-black dark:bg-white text-white dark:text-black rounded-lg bg-primary-700 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Send message</button>
+              <button type="button" id="submitBtn" class="py-3 px-5 text-sm font-medium text-center bg-black dark:bg-white text-white dark:text-black rounded-lg bg-primary-700 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Send message</button>
             </form>
           </div>
         </section>
@@ -178,5 +179,51 @@
     </footer>
     <script src="fade_in.js"></script>
     <script src="menu.js"></script>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+
+          (function() {
+            emailjs.init('t1LBy36zDFCF646xk'); // Replace 'YOUR_USER_ID' with your actual EmailJS user ID
+
+            document.getElementById('submitBtn').addEventListener('click', function(event) {
+              event.preventDefault();
+              sendEmail();
+
+            });
+
+            function sendEmail() {
+              var email = document.getElementById('email').value;
+              var subject = document.getElementById('subject').value;
+              var messages = document.getElementById('message').value;
+
+
+              var templateParams = {
+                sub:subject,
+                mail:email,
+                message:messages
+              };
+
+              emailjs.send('service_v99bil6', 'template_l73sti2', templateParams)
+              .then(function(response) {
+        console.log('Email sent successfully:', response.status, response.text);
+        // Show success notification
+        alert("Thanking for contacting, we will reach to you shortly !");
+
+        resetForm();
+      }, function(error) {
+        console.log('Error sending email:', error);
+        // Show error notification
+        alert("Some error occured, please try again !");
+
+        resetForm();
+                });
+            }
+
+            function resetForm() {
+          document.getElementById('emailForm').reset();
+        }
+          })();
+    </script>
   </body>
 </html>
